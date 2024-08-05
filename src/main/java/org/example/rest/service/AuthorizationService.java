@@ -3,6 +3,7 @@ package org.example.rest.service;
 import org.example.rest.exeption.InvalidCredentials;
 import org.example.rest.exeption.UnauthorizedUser;
 import org.example.rest.model.Authorities;
+import org.example.rest.model.User;
 import org.example.rest.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,11 @@ public class AuthorizationService {
         this.userRepository = userRepository;
     }
 
-    public List<Authorities> getAuthorities(String user, String password) {
-        if (isEmpty(user) || isEmpty(password)) {
+    public List<Authorities> getAuthorities(User user) {
+        if (isEmpty(user.getUser()) || isEmpty(user.getPassword())) {
             throw new InvalidCredentials("User name or password is empty");
         }
-        List<Authorities> userAuthorities = userRepository.getUserAuthorities(user, password);
+        List<Authorities> userAuthorities = userRepository.getUserAuthorities(user);
         if (isEmpty(userAuthorities)) {
             throw new UnauthorizedUser("Unknown user " + user);
         }

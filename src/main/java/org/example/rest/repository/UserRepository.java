@@ -16,9 +16,9 @@ public class UserRepository {
         fillRepo();
     }
 
-    public List<Authorities> getUserAuthorities(String user, String password) {
+    public List<Authorities> getUserAuthorities(User user) {
         for (User u : userList) {
-            if (Objects.equals(user, u.getUser()) && Objects.equals(password, u.getPassword())) {
+            if (Objects.equals(user.getUser(), u.getUser()) && Objects.equals(user.getPassword(), u.getPassword())) {
                 return u.getAuthoritiesList();
             }
         }
